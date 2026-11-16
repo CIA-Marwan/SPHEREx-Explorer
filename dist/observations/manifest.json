@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "regions": [
+    {
+      "id": "irsa-example",
+      "label": "IRSA example field",
+      "ra_deg": 127.69444,
+      "dec_deg": -39.1776,
+      "source": "https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-access/",
+      "observations": [
+        {
+          "observation": {
+            "id": "2025W17_4B_0127_1-D3",
+            "observation_id": "2025W17_4B_0127_1",
+            "detector": 3,
+            "ra_deg": 126.11679490882837,
+            "dec_deg": -40.37530868318439,
+            "observation_mjd": 60790.583635,
+            "observation_time_utc": "2025-04-25T14:00:26.064",
+            "wavelength_min_microns": 1.6301,
+            "wavelength_max_microns": 2.4346,
+            "calibration_level": 2,
+            "exposure_seconds": 113.5826,
+            "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/3/level2_2025W17_4B_0127_1D3_spx_l2b-v27-2026-196.fits",
+            "release": "spherex_dr1",
+            "archive_record_url": "https://irsa.ipac.caltech.edu/applications/spherex"
+          },
+          "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/3/level2_2025W17_4B_0127_1D3_spx_l2b-v27-2026-196.fits?center=127.69444000%2C-39.17760000&size=0.1000",
+          "fits_file": "spherex_dr1-2025W17_4B_0127_1-D3.fits",
+          "image_file": "spherex_dr1-2025W17_4B_0127_1-D3.png",
+          "fits_date_obs": "2025-04-25T14:00:26.045",
+          "fits_bunit": "MJy / sr",
+          "image_shape": [
+            59,
+            58
+          ],
+          "extensions": [
+            "PRIMARY",
+            "IMAGE",
+            "FLAGS",
+            "VARIANCE",
+            "ZODI",
+            "EPSF",
+            "WCS-WAVE"
+          ],
+          "processing": "IMAGE HDU; finite pixels; 1st-99th percentile asinh stretch; false-colour PNG",
+          "wavelength_note": "SIA detector range only; wavelength varies across the image."
+        },
+        {
+          "observation": {
+            "id": "2026W21_1A_0480_1-D1",
+            "observation_id": "2026W21_1A_0480_1",
+            "detector": 1,
+            "ra_deg": 128.59099166871204,
+            "dec_deg": -40.18609604267906,
+            "observation_mjd": 61181.143987,
+            "observation_time_utc": "2026-05-21T03:27:20.477",
+            "wavelength_min_microns": 0.7455,
+            "wavelength_max_microns": 1.1167,
+            "calibration_level": 2,
+            "exposure_seconds": 113.5826,
+            "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W21_1A/l2b-v27-2026-268/1/level2_2026W21_1A_0480_1D1_spx_l2b-v27-2026-268.fits",
+            "release": "spherex_qr3",
+            "archive_record_url": "https://irsa.ipac.caltech.edu/applications/spherex"
+          },
+          "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W21_1A/l2b-v27-2026-268/1/level2_2026W21_1A_0480_1D1_spx_l2b-v27-2026-268.fits?center=127.69444000%2C-39.17760000&size=0.1000",
+          "fits_file": "spherex_qr3-2026W21_1A_0480_1-D1.fits",
+          "image_file": "spherex_qr3-2026W21_1A_0480_1-D1.png",
+          "fits_date_obs": "2026-05-21T03:27:20.505",
+          "fits_bunit": "MJy / sr",
+          "image_shape": [
+            59,
+            58
+          ],
+          "extensions": [
+            "PRIMARY",
+            "IMAGE",
+            "FLAGS",
+            "VARIANCE",
+            "ZODI",
+            "EPSF",
+            "WCS-WAVE"
+          ],
+          "processing": "IMAGE HDU; finite pixels; 1st-99th percentile asinh stretch; false-colour PNG",
+          "wavelength_note": "SIA detector range only; wavelength varies across the image."
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "comparison-2025W17_4B_0127_1-D3-2026W18_1A_0045_1-D3",
+          "earlier": {
+            "id": "2025W17_4B_0127_1-D3",
+            "observation_id": "2025W17_4B_0127_1",
+            "detector": 3,
+            "ra_deg": 126.11679490882837,
+            "dec_deg": -40.37530868318439,
+            "observation_mjd": 60790.583635,
+            "observation_time_utc": "2025-04-25T14:00:26.064",
+            "wavelength_min_microns": 1.6301,
+            "wavelength_max_microns": 2.4346,
+            "calibration_level": 2,
+            "exposure_seconds": 113.5826,
+            "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/3/level2_2025W17_4B_0127_1D3_spx_l2b-v27-2026-196.fits",
+            "release": "spherex_dr1",
+            "archive_record_url": "https://irsa.ipac.caltech.edu/applications/spherex"
+          },
+          "later": {
+            "id": "2026W18_1A_0045_1-D3",
+            "observation_id": "2026W18_1A_0045_1",
+            "detector": 3,
+            "ra_deg": 126.1177038966863,
+            "dec_deg": -40.37544609745491,
+            "observation_mjd": 61157.177468,
+            "observation_time_utc": "2026-04-27T04:15:33.235",
+            "wavelength_min_microns": 1.6301,
+            "wavelength_max_microns": 2.4346,
+            "calibration_level": 2,
+            "exposure_seconds": 113.5826,
+            "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0045_1D3_spx_l2b-v27-2026-244.fits",
+            "release": "spherex_dr1",
+            "archive_record_url": "https://irsa.ipac.caltech.edu/applications/spherex"
+          },
+          "before_image": "comparison-2025W17_4B_0127_1-D3-2026W18_1A_0045_1-D3-before.png",
+          "after_image": "comparison-2025W17_4B_0127_1-D3-2026W18_1A_0045_1-D3-after.png",
+          "later_cutout_file": "spherex_dr1-2026W18_1A_0045_1-D3.fits",
+          "calibration_url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/3/spectral_wcs_D3_spx_cal-swcs-v5-2026-191.fits",
+          "calibration_sha256": "51750c8f948a30541d391e54930279aa067c62c398a7cc2679e592bc6044427a",
+          "details": {
+            "central_wavelength_microns": 2.383072853088379,
+            "later_central_wavelength_microns": 2.383072853088379,
+            "central_bandwidth_microns": 0.059797145426273346,
+            "valid_pixels": 3272,
+            "total_pixels": 3422,
+            "display_min_mjy_sr": 0.12438023142516613,
+            "display_max_mjy_sr": 4.23617280483245,
+            "exposure_seconds": [
+              113.5826,
+              113.5826
+            ],
+            "calibration_ids": {
+              "spectral_wcs": "019f4f99-19af-763f-8f2e-b7dc6cd00055",
+              "abs_gain_matrix": "019f4f95-4ba8-7702-b148-d444260b8782"
+            },
+            "pipeline_version": "7.0.5"
+          },
+          "method": "CWAVE/CBAND pixel screening; only SOURCE flag allowed; positive VARIANCE; FINAST=0; WCS nearest-neighbor reprojection; shared 1st-99th percentile asinh stretch",
+          "limitations": "Visual inspection only; no PSF matching, zodiacal subtraction, or uncertainty propagation."
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

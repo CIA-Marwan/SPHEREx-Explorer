@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="0; url=./" />
+    <script>
+      window.location.replace(new URL("./", window.location.href).href);
+    </script>
+    <meta
+      name="description"
+      content="Explore the SPHEREx sky in 102 colors and discover a universe of changing objects."
+    />
+    <title>SPHEREx Explorer — Explore the Sky</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #f5f6ff;
+        --muted: #a7b3d4;
+        --line: rgba(67, 111, 218, 0.39);
+        --panel: rgba(4, 12, 31, 0.91);
+        --blue: #45a4ff;
+        --purple: #a536ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-width: 320px;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        background:
+          radial-gradient(ellipse at 63% 14%, rgba(19, 57, 118, 0.38), transparent 35%),
+          #020817;
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button,
+      a,
+      select {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .topbar {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        height: 65px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 max(22px, calc((100vw - 1100px) / 2));
+        border: 1px solid rgba(95, 124, 191, 0.2);
+        background: rgba(2, 8, 23, 0.94);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        white-space: nowrap;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+
+      .brand-mark {
+        width: 30px;
+        height: 30px;
+      }
+
+      .main-nav {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        gap: clamp(20px, 3.2vw, 40px);
+        margin-left: 52px;
+      }
+
+      .main-nav a {
+        position: relative;
+        display: grid;
+        height: 100%;
+        align-items: center;
+        color: #d3d9ec;
+        font-size: 12px;
+        transition: color 160ms ease;
+      }
+
+      .main-nav a:hover,
+      .main-nav a[aria-current="page"] {
+        color: #fff;
+      }
+
+      .main-nav a[aria-current="page"]::after {
+        position: absolute;
+        right: 0;
+        bottom: 10px;
+        left: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #42b6ff, #d332ff);
+        content: "";
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .theme-toggle,
+      .outline-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(155, 112, 255, 0.8);
+        border-radius: 999px;
+        background: rgba(9, 14, 36, 0.82);
+        color: #e9eaff;
+      }
+
+      .theme-toggle {
+        width: 43px;
+        height: 26px;
+        gap: 3px;
+        border-color: rgba(88, 109, 171, 0.35);
+        color: #c9d6ff;
+        font-size: 12px;
+      }
+
+      .outline-pill {
+        min-height: 27px;
+        padding: 0 13px;
+        font-size: 11px;
+        font-weight: 600;
+        transition: background 160ms ease;
+      }
+
+      .outline-pill:hover,
+      .secondary-button:hover {
+        background: rgba(111, 70, 235, 0.2);
+      }
+
+      .arrow {
+        margin-left: 8px;
+        font-size: 16px;
+        line-height: 0;
+      }
+
+      .hero {
+        position: relative;
+        height: 322px;
+        overflow: hidden;
+        isolation: isolate;
+        background-color: #020817;
+        background-image:
+          linear-gradient(90deg, rgba(2, 8, 23, 0.82), rgba(2, 8, 23, 0.45) 34%, transparent 66%),
+          radial-gradient(ellipse at 78% 45%, rgba(137, 48, 235, 0.22), transparent 45%),
+          radial-gradient(ellipse at 80% 4%, rgba(32, 83, 201, 0.28), transparent 45%),
+          url("./spherex-hero.png");
+        background-position: center, center, center, 25% 23%;
+        background-size: cover, cover, cover, auto 150%;
+        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+      }
+
+      .hero-copy {
+        position: relative;
+        z-index: 1;
+        width: min(390px, 44%);
+        padding: 45px 0 28px 31px;
+      }
+
+      .eyebrow {
+        margin: 0 0 7px;
+        color: #8fb5ff;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 3px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(36px, 4.2vw, 49px);
+        font-weight: 750;
+        letter-spacing: -2.6px;
+        line-height: 0.98;
+      }
+
+      .gradient-text {
+        color: #6d8dff;
+        background: linear-gradient(100deg, #527eff, #ca45ff 92%);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-description {
+        max-width: 355px;
+        margin: 14px 0 14px;
+        color: #d0daec;
+        font-size: 12px;
+        line-height: 1.42;
+      }
+
+      .hero-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 11px;
+      }
+
+      .primary-button,
+      .secondary-button {
+        display: inline-flex;
+        min-height: 38px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 17px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        transition:
+          transform 160ms ease,
+          box-shadow 160ms ease,
+          background 160ms ease;
+      }
+
+      .primary-button {
+        border: 0;
+        background: linear-gradient(105deg, #398dff 3%, #8248ff 61%, #d32bfb);
+        box-shadow: 0 4px 19px rgba(112, 62, 255, 0.35);
+        color: white;
+      }
+
+      .primary-button:hover,
+      .secondary-button:hover {
+        transform: translateY(-1px);
+      }
+
+      .secondary-button {
+        min-width: 133px;
+        gap: 8px;
+        border: 1px solid rgba(172, 190, 239, 0.8);
+        background: rgba(4, 10, 28, 0.58);
+        color: #eef2ff;
+      }
+
+      .play-icon {
+        font-size: 15px;
+      }
+
+      .stats-panel {
+        position: absolute;
+        z-index: 1;
+        top: 73px;
+        right: 2.2%;
+        width: 208px;
+        padding: 7px 12px;
+        border: 1px solid rgba(77, 116, 213, 0.65);
+        border-radius: 14px;
+        background: rgba(5, 13, 39, 0.86);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(12px);
+      }
+
+      .stat {
+        display: flex;
+        min-height: 57px;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .stat + .stat {
+        border-top: 1px solid rgba(90, 116, 185, 0.42);
+      }
+
+      .stat-icon {
+        display: grid;
+        width: 35px;
+        height: 35px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid #aa65ff;
+        border-radius: 50%;
+        color: #d4c6ff;
+        font-size: 17px;
+      }
+
+      .stat strong,
+      .stat span:last-child {
+        display: block;
+      }
+
+      .stat strong {
+        margin-bottom: 4px;
+        font-size: 11px;
+      }
+
+      .stat span:last-child {
+        color: #bdc9e3;
+        font-size: 9px;
+      }
+
+      .explore-panel {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        max-width: 1100px;
+        min-height: 132px;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: 53px 45px;
+        align-items: center;
+        gap: 0 20px;
+        margin: 0 auto;
+        padding: 8px 17px 10px;
+        border: 1px solid rgba(66, 104, 189, 0.43);
+        border-radius: 10px;
+        background: linear-gradient(105deg, rgba(3, 10, 27, 0.97), rgba(4, 13, 33, 0.94));
+      }
+
+      .explore-heading {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 13px;
+      }
+
+      .heading-icon {
+        display: grid;
+        width: 28px;
+        height: 32px;
+        flex: 0 0 auto;
+        place-items: center;
+        color: #bb67ff;
+        font-size: 27px;
+      }
+
+      .explore-heading h2 {
+        margin: 0 0 5px;
+        font-size: 16px;
+        letter-spacing: -0.3px;
+      }
+
+      .explore-heading p {
+        max-width: 310px;
+        margin: 0;
+        color: #b7c2dc;
+        font-size: 10px;
+        line-height: 1.45;
+      }
+
+      .tabs {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        padding: 3px;
+        border: 1px solid rgba(55, 88, 153, 0.27);
+        border-radius: 12px;
+        background: rgba(1, 8, 24, 0.76);
+      }
+
+      .tab {
+        display: inline-flex;
+        min-height: 32px;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        padding: 0 12px;
+        border: 0;
+        border-radius: 9px;
+        background: transparent;
+        color: #d5dcf2;
+        cursor: pointer;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+
+      .tab-icon {
+        color: #bdd3ff;
+        font-size: 14px;
+      }
+
+      .tab[aria-selected="true"] {
+        background: linear-gradient(115deg, rgba(38, 95, 231, 0.65), rgba(124, 41, 204, 0.74));
+        box-shadow: 0 2px 10px rgba(80, 77, 255, 0.25);
+        color: white;
+      }
+
+      .filter-row {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr 1fr 1fr 1.77fr auto;
+        align-items: center;
+        gap: 11px;
+      }
+
+      .filter-control {
+        display: flex;
+        min-width: 0;
+        height: 35px;
+        align-items: center;
+        gap: 8px;
+        padding: 0 12px;
+        border: 1px solid rgba(64, 112, 218, 0.8);
+        border-radius: 999px;
+        background: rgba(2, 9, 25, 0.9);
+        color: #d7dff5;
+      }
+
+      .filter-control:focus-within {
+        border-color: #9c68ff;
+        box-shadow: 0 0 0 2px rgba(131, 76, 255, 0.15);
+      }
+
+      .control-icon {
+        flex: 0 0 auto;
+        color: #d7e1ff;
+        font-size: 16px;
+      }
+
+      .filter-control select,
+      .filter-control input {
+        width: 100%;
+        min-width: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: inherit;
+        font-size: 10px;
+      }
+
+      .filter-control select {
+        appearance: none;
+        cursor: pointer;
+      }
+
+      .filter-control select option {
+        background: #08142e;
+      }
+
+      .filter-control input::placeholder {
+        color: #94a4c6;
+        opacity: 1;
+      }
+
+      .search-control {
+        padding-right: 14px;
+      }
+
+      .view-button {
+        min-width: 111px;
+        min-height: 36px;
+        padding: 0 16px;
+        white-space: nowrap;
+      }
+
+      .feature-grid {
+        display: grid;
+        max-width: 1100px;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 9px;
+        margin: 11px auto 0;
+      }
+
+      .feature-card {
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid rgba(61, 102, 192, 0.43);
+        border-radius: 9px;
+        background: linear-gradient(145deg, rgba(5, 14, 36, 0.98), rgba(2, 9, 25, 0.98));
+        transition:
+          transform 160ms ease,
+          border-color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(118, 123, 255, 0.83);
+        box-shadow: 0 8px 24px rgba(26, 74, 180, 0.19);
+      }
+
+      .card-art {
+        display: block;
+        width: calc(100% - 28px);
+        height: 94px;
+        margin: 9px auto 0;
+        overflow: hidden;
+        border: 1px solid rgba(61, 105, 206, 0.4);
+        border-radius: 7px;
+        background: #060c26;
+      }
+
+      .card-content {
+        position: relative;
+        min-height: 67px;
+        padding: 9px 15px 10px;
+      }
+
+      .card-content h3 {
+        overflow: hidden;
+        margin: 0 0 4px;
+        font-size: 12px;
+        letter-spacing: -0.2px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .card-content p {
+        max-width: 95%;
+        margin: 0;
+        color: #b4c0db;
+        font-size: 10px;
+        line-height: 1.38;
+      }
+
+      .card-arrow {
+        position: absolute;
+        right: 12px;
+        bottom: 9px;
+        color: #d3e2ff;
+        font-size: 17px;
+      }
+
+      .card-empty {
+        display: none;
+        grid-column: 1 / -1;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .footer {
+        display: flex;
+        max-width: 1100px;
+        min-height: 52px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 0 auto;
+        color: #94a5ce;
+        font-size: 9px;
+      }
+
+      .footer-tags {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: #8784d5;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 1.4px;
+      }
+
+      .footer-tags span + span::before {
+        margin-right: 14px;
+        color: #8c9bc3;
+        content: "/";
+      }
+
+      .footer-credit {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        text-align: right;
+      }
+
+      .footer-credit span + span::before {
+        margin-right: 9px;
+        color: #9d8dff;
+        content: "•";
+      }
+
+      @media (max-width: 900px) {
+        .topbar {
+          padding: 0 16px;
+        }
+
+        .main-nav {
+          gap: 19px;
+          margin-left: 12px;
+        }
+
+        .header-actions {
+          gap: 9px;
+        }
+
+        .hero {
+          height: auto;
+          min-height: 322px;
+        }
+
+        .hero-copy {
+          width: 47%;
+          padding-left: 23px;
+        }
+
+        .stats-panel {
+          right: 1.5%;
+          width: 188px;
+        }
+
+        .explore-panel {
+          margin: 0 16px;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto auto;
+          gap: 9px;
+          padding-top: 11px;
+        }
+
+        .explore-panel .tabs {
+          justify-self: center;
+        }
+
+        .filter-row {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .search-control {
+          grid-column: span 2;
+        }
+
+        .feature-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          margin: 11px 16px 0;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .topbar {
+          height: 58px;
+          flex-wrap: wrap;
+        }
+
+        .brand {
+          gap: 8px;
+          font-size: 15px;
+        }
+
+        .brand-mark {
+          width: 27px;
+          height: 27px;
+        }
+
+        .main-nav {
+          position: absolute;
+          top: 57px;
+          right: 0;
+          left: 0;
+          height: 42px;
+          justify-content: center;
+          gap: clamp(19px, 7vw, 34px);
+          margin: 0;
+          border-bottom: 1px solid rgba(95, 124, 191, 0.2);
+          background: rgba(2, 8, 23, 0.96);
+        }
+
+        .main-nav a {
+          font-size: 11px;
+        }
+
+        .main-nav a[aria-current="page"]::after {
+          bottom: 5px;
+        }
+
+        .header-actions {
+          gap: 7px;
+        }
+
+        .theme-toggle {
+          display: none;
+        }
+
+        .outline-pill {
+          min-height: 26px;
+          padding: 0 9px;
+          font-size: 10px;
+        }
+
+        .hero {
+          height: auto;
+          min-height: 520px;
+          margin-top: 42px;
+        }
+
+        .hero-copy {
+          width: 100%;
+          padding: 27px 20px 20px;
+        }
+
+        h1 {
+          max-width: 380px;
+          font-size: clamp(42px, 11vw, 55px);
+        }
+
+        .hero-description {
+          max-width: 380px;
+        }
+
+        .stats-panel {
+          top: auto;
+          right: 12px;
+          bottom: 20px;
+          width: min(48%, 200px);
+          padding: 5px 9px;
+        }
+
+        .stat {
+          min-height: 51px;
+          gap: 8px;
+        }
+
+        .stat-icon {
+          width: 30px;
+          height: 30px;
+          font-size: 14px;
+        }
+
+        .stat strong {
+          font-size: 10px;
+        }
+
+        .stat span:last-child {
+          font-size: 8px;
+        }
+
+        .explore-panel {
+          margin: 0 10px;
+          padding: 12px 11px;
+        }
+
+        .explore-heading p {
+          font-size: 9px;
+        }
+
+        .tabs {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .tab {
+          gap: 4px;
+          padding: 0 7px;
+          font-size: 9px;
+        }
+
+        .tab-icon {
+          font-size: 12px;
+        }
+
+        .filter-row {
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+        }
+
+        .filter-control {
+          height: 34px;
+          padding: 0 9px;
+        }
+
+        .object-control {
+          grid-column: span 2;
+        }
+
+        .search-control {
+          grid-column: span 2;
+        }
+
+        .view-button {
+          grid-column: span 2;
+          justify-self: stretch;
+        }
+
+        .feature-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+          margin: 10px;
+        }
+
+        .card-art {
+          width: calc(100% - 18px);
+          height: 88px;
+          margin-top: 8px;
+        }
+
+        .card-content {
+          min-height: 76px;
+          padding: 8px 9px 10px;
+        }
+
+        .card-content h3 {
+          font-size: 11px;
+        }
+
+        .card-content p {
+          font-size: 9px;
+        }
+
+        .card-arrow {
+          right: 8px;
+          bottom: 6px;
+        }
+
+        .footer {
+          min-height: 66px;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin: 0 12px;
+          padding: 9px 0;
+        }
+
+        .footer-credit {
+          justify-content: center;
+        }
+      }
+
+      @media (min-width: 1400px) {
+        .hero-copy {
+          margin-left: max(0px, calc((100vw - 1100px) / 2));
+        }
+
+        .hero {
+          background-position: center, center, center, 65% 23%;
+        }
+
+        .stats-panel {
+          right: max(22px, calc((100vw - 1100px) / 2 + 8px));
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="SPHEREx Explorer home">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="brandPlanet" x1="0" x2="1" y1="0" y2="1">
+              <stop stop-color="#55d5ff" />
+              <stop offset="1" stop-color="#783cff" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="20" cy="21" rx="17" ry="6.8" transform="rotate(-27 20 21)" fill="none" stroke="#aab7ff" stroke-width="1.8" />
+          <circle cx="20" cy="20" r="8" fill="url(#brandPlanet)" />
+          <circle cx="11" cy="24" r="1.5" fill="#e7edff" />
+        </svg>
+        <span>SPHEREx Explorer</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home" aria-current="page">Home</a>
+        <a href="#explore">Explore</a>
+        <a href="#compare">Compare</a>
+        <a href="#objects">Objects</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Color theme">
+          <span aria-hidden="true">☼</span><span aria-hidden="true">◉</span>
+        </button>
+        <a
+          class="outline-pill"
+          href="https://irsa.ipac.caltech.edu/Missions/spherex.html"
+          target="_blank"
+          rel="noreferrer"
+        >Explore the Sky <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">THE UNIVERSE IN 102 COLORS</p>
+          <h1 id="hero-title">Explore the<br /><span class="gradient-text">SPHEREx</span> Sky</h1>
+          <p class="hero-description">
+            SPHEREx is mapping the entire sky every six months in 102 bands of near-infrared light, revealing over a billion objects. Explore changing objects, discover new worlds, and see the universe in a whole new way.
+          </p>
+          <div class="hero-buttons">
+            <a class="primary-button" href="https://irsa.ipac.caltech.edu/Missions/spherex.html" target="_blank" rel="noreferrer">
+              <span aria-hidden="true">◉</span>&nbsp; Explore the Sky <span class="arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="secondary-button" href="#about"><span class="play-icon" aria-hidden="true">▷</span> How It Works</a>
+          </div>
+        </div>
+
+        <aside class="stats-panel" aria-label="Mission highlights">
+          <div class="stat">
+            <span class="stat-icon" aria-hidden="true">☆</span>
+            <span><strong>102 Spectral Bands</strong><span>Near-infrared light</span></span>
+          </div>
+          <div class="stat">
+            <span class="stat-icon" aria-hidden="true">▱</span>
+            <span><strong>1+ Billion Objects</strong><span>Stars, galaxies, planets &amp; more</span></span>
+          </div>
+          <div class="stat">
+            <span class="stat-icon" aria-hidden="true">◷</span>
+            <span><strong>Full Sky Every 6 Months</strong><span>Track how objects change</span></span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="explore-panel" id="explore" aria-labelledby="explore-title">
+        <div class="explore-heading">
+          <span class="heading-icon" aria-hidden="true">♧</span>
+          <div>
+            <h2 id="explore-title">Explore the Sky</h2>
+            <p>Choose a region, date, or object type to start exploring SPHEREx's view of the universe.</p>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Explore view">
+          <button class="tab" id="tab-sky" type="button" role="tab" aria-selected="true" aria-controls="feature-grid">
+            <span class="tab-icon" aria-hidden="true">◎</span> Sky View
+          </button>
+          <button class="tab" id="tab-compare" type="button" role="tab" aria-selected="false" aria-controls="feature-grid">
+            <span class="tab-icon" aria-hidden="true">⊞</span> Compare
+          </button>
+          <button class="tab" id="tab-objects" type="button" role="tab" aria-selected="false" aria-controls="feature-grid">
+            <span class="tab-icon" aria-hidden="true">✥</span> Objects
+          </button>
+          <button class="tab" id="tab-timeline" type="button" role="tab" aria-selected="false" aria-controls="feature-grid">
+            <span class="tab-icon" aria-hidden="true">◴</span> Timeline
+          </button>
+        </div>
+
+        <form class="filter-row" id="sky-search" action="https://irsa.ipac.caltech.edu/Missions/spherex.html" method="get" target="_blank">
+          <label class="filter-control">
+            <span class="control-icon" aria-hidden="true">♧</span>
+            <select name="region" aria-label="Select region">
+              <option value="">Select Region</option>
+              <option value="all-sky">All Sky</option>
+              <option value="galactic-plane">Galactic Plane</option>
+              <option value="deep-field">Deep Field</option>
+            </select>
+            <span aria-hidden="true">⌄</span>
+          </label>
+          <label class="filter-control">
+            <span class="control-icon" aria-hidden="true">▣</span>
+            <select name="date" aria-label="Select date">
+              <option value="">Select Date</option>
+              <option value="dr1">Data Release 1</option>
+              <option value="latest">Latest observation</option>
+            </select>
+            <span aria-hidden="true">⌄</span>
+          </label>
+          <label class="filter-control object-control">
+            <span class="control-icon" aria-hidden="true">✧</span>
+            <select name="object" aria-label="Select object type">
+              <option value="">Object Type</option>
+              <option value="stars">Stars</option>
+              <option value="galaxies">Galaxies</option>
+              <option value="planets">Planets</option>
+              <option value="comets">Comets</option>
+            </select>
+            <span aria-hidden="true">⌄</span>
+          </label>
+          <label class="filter-control search-control">
+            <span class="control-icon" aria-hidden="true">⌕</span>
+            <input id="card-search" type="search" placeholder="Search for a star, galaxy, planet..." aria-label="Search sky features" />
+          </label>
+          <button class="primary-button view-button" type="submit">View Sky <span class="arrow" aria-hidden="true">→</span></button>
+        </form>
+      </section>
+
+      <section class="feature-grid" id="feature-grid" role="tabpanel" aria-labelledby="tab-sky">
+        <a class="feature-card" href="https://irsa.ipac.caltech.edu/doi/10.26131/IRSA679" target="_blank" rel="noreferrer" data-search="all sky view spectral cube">
+          <svg class="card-art" viewBox="0 0 300 110" role="img" aria-label="Colorful all-sky map">
+            <defs>
+              <radialGradient id="mapGlow">
+                <stop stop-color="#ffdc50" />
+                <stop offset=".13" stop-color="#ff4c9f" />
+                <stop offset=".48" stop-color="#792aff" />
+                <stop offset="1" stop-color="#07184b" />
+              </radialGradient>
+              <clipPath id="mapClip"><ellipse cx="150" cy="55" rx="147" ry="51" /></clipPath>
+            </defs>
+            <rect width="300" height="110" fill="#040b24" />
+            <g clip-path="url(#mapClip)">
+              <rect width="300" height="110" fill="url(#mapGlow)" />
+              <path d="M4 55 Q60 31 102 53 T202 51 T300 54 M10 63 Q62 39 104 62 T205 59 T299 62" fill="none" stroke="#fb68fd" stroke-width="5" opacity=".72" />
+              <path d="M10 55 Q57 50 99 55 T202 54 T297 55" fill="none" stroke="#ffe875" stroke-width="7" opacity=".92" />
+              <path d="M50 6 Q78 55 50 105 M100 3 Q119 55 100 107 M150 4 Q150 55 150 106 M200 3 Q181 55 200 107 M250 6 Q222 55 250 105" fill="none" stroke="#74a7ff" stroke-width=".7" opacity=".7" />
+              <circle cx="43" cy="33" r="1" fill="white" /><circle cx="82" cy="78" r="1.2" fill="white" /><circle cx="148" cy="27" r="1" fill="white" /><circle cx="214" cy="72" r="1" fill="white" /><circle cx="268" cy="36" r="1" fill="white" />
+            </g>
+            <ellipse cx="150" cy="55" rx="147" ry="51" fill="none" stroke="#6b8ee4" stroke-width="1" opacity=".65" />
+          </svg>
+          <div class="card-content"><h3>All-Sky View</h3><p>See the entire sky in near-infrared light, updated every 6 months.</p><span class="card-arrow" aria-hidden="true">→</span></div>
+        </a>
+
+        <a class="feature-card" href="https://irsa.ipac.caltech.edu/doi/10.26131/IRSA678" target="_blank" rel="noreferrer" data-search="track changing objects stars asteroids planets">
+          <svg class="card-art" viewBox="0 0 300 110" role="img" aria-label="A changing star against a colorful galaxy">
+            <defs>
+              <radialGradient id="starNebula"><stop stop-color="#ffcf60" /><stop offset=".12" stop-color="#ff6a44" /><stop offset=".42" stop-color="#b324a4" stop-opacity=".85" /><stop offset="1" stop-color="#080c2a" stop-opacity="0" /></radialGradient>
+              <filter id="starBlur"><feGaussianBlur stdDeviation="7" /></filter>
+            </defs>
+            <rect width="300" height="110" fill="#050a21" />
+            <ellipse cx="166" cy="50" rx="126" ry="72" fill="url(#starNebula)" />
+            <ellipse cx="166" cy="50" rx="42" ry="18" fill="#ff892f" opacity=".7" filter="url(#starBlur)" />
+            <circle cx="171" cy="45" r="12" fill="#ffad46" /><circle cx="171" cy="45" r="5" fill="#fff5c3" />
+            <circle cx="70" cy="76" r="10" fill="#41eece" opacity=".22" /><circle cx="70" cy="76" r="5" fill="#6effd4" /><circle cx="70" cy="76" r="2" fill="white" />
+            <path d="M78 71 Q116 57 164 47" fill="none" stroke="#9dffe5" stroke-width="1.1" stroke-dasharray="3 4" />
+            <g fill="#e8eaff"><circle cx="30" cy="20" r="1" /><circle cx="93" cy="25" r="1.3" /><circle cx="224" cy="26" r="1" /><circle cx="256" cy="76" r="1.2" /><circle cx="118" cy="93" r="1" /><circle cx="44" cy="94" r="1" /></g>
+          </svg>
+          <div class="card-content"><h3>Track Changing Objects</h3><p>Watch comets, asteroids, stars and new planets move over time.</p><span class="card-arrow" aria-hidden="true">→</span></div>
+        </a>
+
+        <a class="feature-card" id="compare" href="https://irsa.ipac.caltech.edu/doi/10.26131/IRSA678" target="_blank" rel="noreferrer" data-search="before after comparison observations">
+          <svg class="card-art" viewBox="0 0 300 110" role="img" aria-label="Before and after comparison of star fields">
+            <defs>
+              <linearGradient id="compareBg" x2="1" y2="1"><stop stop-color="#090c2c" /><stop offset=".5" stop-color="#35105d" /><stop offset="1" stop-color="#06193d" /></linearGradient>
+              <radialGradient id="compareCloud"><stop stop-color="#ff32b8" stop-opacity=".9" /><stop offset="1" stop-color="#7e2aff" stop-opacity="0" /></radialGradient>
+            </defs>
+            <rect width="300" height="110" fill="url(#compareBg)" />
+            <ellipse cx="80" cy="61" rx="62" ry="45" fill="url(#compareCloud)" /><ellipse cx="232" cy="48" rx="73" ry="54" fill="url(#compareCloud)" />
+            <path d="M19 76 L57 42 L91 71 L127 28 M174 75 L204 48 L233 64 L268 26" fill="none" stroke="#b179ff" stroke-width="1" opacity=".68" />
+            <g fill="#fff6d8"><circle cx="45" cy="38" r="2" /><circle cx="93" cy="73" r="1.4" /><circle cx="118" cy="34" r="1.4" /><circle cx="193" cy="32" r="1.8" /><circle cx="255" cy="68" r="2" /><circle cx="224" cy="81" r="1.2" /></g>
+            <path d="M150 0 V110" stroke="#e0e9ff" stroke-width="2" opacity=".85" />
+            <circle cx="150" cy="55" r="11" fill="#edf4ff" /><circle cx="150" cy="55" r="8" fill="#5269b4" /><path d="M147 51 L152 55 L147 59 M153 51 L148 55 L153 59" fill="none" stroke="white" stroke-width="1" />
+          </svg>
+          <div class="card-content"><h3>Before &amp; After Comparison</h3><p>See how objects shift, brighten, and evolve across observations.</p><span class="card-arrow" aria-hidden="true">→</span></div>
+        </a>
+
+        <a class="feature-card" id="objects" href="https://irsa.ipac.caltech.edu/doi/10.26131/IRSA679" target="_blank" rel="noreferrer" data-search="discover new worlds planets exoplanets">
+          <svg class="card-art" viewBox="0 0 300 110" role="img" aria-label="Illustration of a ringed planet in space">
+            <defs>
+              <radialGradient id="planet" cx=".35" cy=".28"><stop stop-color="#fff1bc" /><stop offset=".44" stop-color="#ddb87e" /><stop offset=".78" stop-color="#a77c51" /><stop offset="1" stop-color="#49394b" /></radialGradient>
+              <linearGradient id="ring" x2="0" y2="1"><stop stop-color="#c8b18f" /><stop offset=".5" stop-color="#6c5a51" /><stop offset="1" stop-color="#ead3a3" /></linearGradient>
+            </defs>
+            <rect width="300" height="110" fill="#050b1e" />
+            <g fill="#eaf0ff" opacity=".8"><circle cx="32" cy="22" r="1" /><circle cx="79" cy="74" r="1" /><circle cx="117" cy="18" r="1.2" /><circle cx="232" cy="25" r="1" /><circle cx="269" cy="78" r="1.2" /><circle cx="195" cy="91" r=".8" /></g>
+            <ellipse cx="159" cy="59" rx="79" ry="21" transform="rotate(-12 159 59)" fill="none" stroke="#6b5b54" stroke-width="13" opacity=".88" />
+            <ellipse cx="159" cy="59" rx="79" ry="21" transform="rotate(-12 159 59)" fill="none" stroke="url(#ring)" stroke-width="8" />
+            <circle cx="158" cy="49" r="31" fill="url(#planet)" />
+            <path d="M130 42 Q157 48 186 42 M128 55 Q157 62 187 54 M137 72 Q156 76 177 69" fill="none" stroke="#9f7657" stroke-width="3" opacity=".48" />
+            <path d="M80 76 Q153 54 238 41" fill="none" stroke="#e5d4b8" stroke-width="2" opacity=".8" />
+          </svg>
+          <div class="card-content"><h3>Discover New Worlds</h3><p>Find brown dwarfs, exoplanets, and other hidden objects.</p><span class="card-arrow" aria-hidden="true">→</span></div>
+        </a>
+
+        <a class="feature-card" href="https://irsa.ipac.caltech.edu/doi/10.26131/IRSA678" target="_blank" rel="noreferrer" data-search="explore by object type stars galaxies planets comets">
+          <svg class="card-art" viewBox="0 0 300 110" role="img" aria-label="Colorful nebula and distant galaxies">
+            <defs>
+              <radialGradient id="nebulaA"><stop stop-color="#ff38cc" stop-opacity=".9" /><stop offset=".55" stop-color="#6e26ff" stop-opacity=".5" /><stop offset="1" stop-color="#07122b" stop-opacity="0" /></radialGradient>
+              <radialGradient id="nebulaB"><stop stop-color="#2ff0f5" stop-opacity=".8" /><stop offset=".6" stop-color="#125acb" stop-opacity=".35" /><stop offset="1" stop-color="#07122b" stop-opacity="0" /></radialGradient>
+            </defs>
+            <rect width="300" height="110" fill="#05091f" />
+            <ellipse cx="101" cy="61" rx="94" ry="65" fill="url(#nebulaA)" transform="rotate(-25 101 61)" />
+            <ellipse cx="203" cy="50" rx="85" ry="59" fill="url(#nebulaB)" transform="rotate(25 203 50)" />
+            <path d="M15 75 Q64 26 113 56 T210 37 T293 49 M28 92 Q79 48 123 71 T215 54 T288 69" fill="none" stroke="#ee5bf8" stroke-width="2" opacity=".5" />
+            <g fill="#fff"><circle cx="41" cy="25" r="1" /><circle cx="85" cy="80" r="1.3" /><circle cx="131" cy="31" r="1" /><circle cx="169" cy="72" r="1.4" /><circle cx="237" cy="24" r="1.2" /><circle cx="267" cy="83" r="1" /></g>
+          </svg>
+          <div class="card-content"><h3>Explore by Object Type</h3><p>Filter by stars, galaxies, planets, comets and more.</p><span class="card-arrow" aria-hidden="true">→</span></div>
+        </a>
+        <p class="card-empty" id="empty-state">No sky features match that search. Try another object or region.</p>
+      </section>
+
+      <footer class="footer" id="about">
+        <div class="footer-tags"><span>REAL DATA</span><span>REAL SCIENCE</span><span>A CLEARER VIEW OF OUR UNIVERSE</span></div>
+        <div class="footer-credit"><span>SPHEREx Data Visualization Project</span><span>NASA Space Apps Challenge</span></div>
+      </footer>
+    </main>
+
+    <script>
+      const cards = [...document.querySelectorAll(".feature-card")];
+      const tabs = [...document.querySelectorAll(".tab")];
+      const searchInput = document.querySelector("#card-search");
+      const emptyState = document.querySelector("#empty-state");
+      const featureGrid = document.querySelector("#feature-grid");
+
+      searchInput.addEventListener("input", () => {
+        const normalizeSearch = (value) => value.toLowerCase().replace(/\bgalaxies\b/g, "galaxy");
+        const query = normalizeSearch(searchInput.value.trim());
+        let visibleCount = 0;
+
+        for (const card of cards) {
+          const searchableText = normalizeSearch(`${card.dataset.search} ${card.textContent}`);
+          const matches = searchableText.includes(query);
+          card.hidden = !matches;
+          if (matches) visibleCount += 1;
+        }
+
+        emptyState.style.display = visibleCount ? "none" : "block";
+      });
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+          featureGrid.setAttribute("aria-labelledby", tab.id);
+        });
+      });
+    </script>
+  </body>
+</html>
